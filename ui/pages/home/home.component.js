@@ -22,6 +22,7 @@ import ConnectedAccounts from '../connected-accounts';
 import { Tabs, Tab } from '../../components/ui/tabs';
 import { EthOverview } from '../../components/app/wallet-overview';
 import WhatsNewPopup from '../../components/app/whats-new-popup';
+import TermsOfUsePopup from '../../components/app/terms-of-use-popup';
 import RecoveryPhraseReminder from '../../components/app/recovery-phrase-reminder';
 import ActionableMessage from '../../components/ui/actionable-message/actionable-message';
 import {
@@ -110,6 +111,7 @@ export default class Home extends PureComponent {
     infuraBlocked: PropTypes.bool.isRequired,
     showWhatsNewPopup: PropTypes.bool.isRequired,
     hideWhatsNewPopup: PropTypes.func.isRequired,
+    showTermsOfUsePopup: PropTypes.bool.isRequired,
     announcementsToShow: PropTypes.bool.isRequired,
     ///: BEGIN:ONLY_INCLUDE_IN(flask)
     errorsToShow: PropTypes.object.isRequired,
@@ -119,6 +121,7 @@ export default class Home extends PureComponent {
     showRecoveryPhraseReminder: PropTypes.bool.isRequired,
     setRecoveryPhraseReminderHasBeenShown: PropTypes.func.isRequired,
     setRecoveryPhraseReminderLastShown: PropTypes.func.isRequired,
+    setTermsOfUseLastAgreed: PropTypes.func.isRequired,
     showOutdatedBrowserWarning: PropTypes.bool.isRequired,
     setOutdatedBrowserWarningLastShown: PropTypes.func.isRequired,
     seedPhraseBackedUp: (props) => {
@@ -240,6 +243,11 @@ export default class Home extends PureComponent {
     } = this.props;
     setRecoveryPhraseReminderHasBeenShown(true);
     setRecoveryPhraseReminderLastShown(new Date().getTime());
+  };
+
+  onAcceptTermsOfUse = () => {
+    const { setTermsOfUseLastAgreed } = this.props;
+    setTermsOfUseLastAgreed(new Date().getTime());
   };
 
   onOutdatedBrowserWarningClose = () => {
@@ -599,6 +607,7 @@ export default class Home extends PureComponent {
       announcementsToShow,
       showWhatsNewPopup,
       hideWhatsNewPopup,
+      showTermsOfUsePopup,
       seedPhraseBackedUp,
       showRecoveryPhraseReminder,
       firstTimeFlowType,
@@ -620,6 +629,10 @@ export default class Home extends PureComponent {
       showWhatsNewPopup &&
       !process.env.IN_TEST &&
       !newNetworkAddedConfigurationId;
+
+    const showTermsOfUse =
+      completedOnboarding && !onboardedInThisUISession && showTermsOfUsePopup;
+
     return (
       <div className="main-container">
         <Route path={CONNECTED_ROUTE} component={ConnectedSites} exact />
@@ -635,6 +648,9 @@ export default class Home extends PureComponent {
               hasBackedUp={seedPhraseBackedUp}
               onConfirm={this.onRecoveryPhraseReminderClose}
             />
+          ) : null}
+          {showTermsOfUse ? (
+            <TermsOfUsePopup onAccept={this.onAcceptTermsOfUse} />
           ) : null}
           {isPopup && !connectedStatusPopoverHasBeenShown
             ? this.renderPopover()

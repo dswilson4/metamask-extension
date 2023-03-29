@@ -126,6 +126,16 @@ const Popover = ({
         className={classnames('popover-wrap', className)}
         ref={popoverRef}
       >
+        {showArrow ? <div className="popover-arrow" /> : null}
+        {showHeader && <Header />}
+        {children ? (
+          <Box
+            className={classnames('popover-content', contentClassName)}
+            {...{ ...defaultContentProps, ...contentProps }}
+          >
+            {children}
+          </Box>
+        ) : null}
         {showScrollDown ? (
           <Box
             display={DISPLAY.FLEX}
@@ -135,8 +145,9 @@ const Popover = ({
             backgroundColor={BackgroundColor.backgroundDefault}
             color={Color.iconDefault}
             onClick={onScrollDownButtonClick}
-            className="whats-new-popup__scroll-button"
-            data-testid="whats-new-popup-scroll-button"
+            className="popover-scroll-button"
+            style={{ bottom: footer ? '140px' : '12px' }}
+            data-testid="popover-scroll-button"
           >
             <Icon
               name={ICON_NAMES.ARROW_DOWN}
@@ -144,16 +155,6 @@ const Popover = ({
               size={ICON_SIZES.MD}
               aria-label={t('scrollDown')}
             />
-          </Box>
-        ) : null}
-        {showArrow ? <div className="popover-arrow" /> : null}
-        {showHeader && <Header />}
-        {children ? (
-          <Box
-            className={classnames('popover-content', contentClassName)}
-            {...{ ...defaultContentProps, ...contentProps }}
-          >
-            {children}
           </Box>
         ) : null}
         {footer ? (
