@@ -31,7 +31,7 @@ import {
   Icon,
   Text,
 } from '../../../components/component-library';
-import ConfirmGasDisplay from '../../../components/app/confirm-gas-display';
+import { ConfirmGasDisplay } from '../../../components/app/confirm-gas-display';
 
 export default class ConfirmApproveContent extends Component {
   static contextTypes = {
