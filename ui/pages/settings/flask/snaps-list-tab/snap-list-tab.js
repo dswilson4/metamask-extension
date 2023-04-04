@@ -71,6 +71,7 @@ const SnapListTab = () => {
                   onClick={() => {
                     onClick(snap);
                   }}
+                  snapId={snap.id}
                 />
               );
             })}
