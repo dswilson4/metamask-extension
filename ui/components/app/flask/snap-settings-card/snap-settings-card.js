@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
-import Card from '../../../ui/card';
 import Box from '../../../ui/box';
 
 import {
@@ -11,27 +9,32 @@ import {
   JustifyContent,
   DISPLAY,
   Size,
-  BorderRadius,
+  BLOCK_SIZES,
 } from '../../../../helpers/constants/design-system';
 import { Icon, ICON_NAMES, ICON_SIZES, Text } from '../../../component-library';
 import SnapAvatar from '../snap-avatar';
 
-const SnapSettingsCard = ({ name, url, onClick, className, snapId }) => {
+const SnapSettingsCard = ({ name, url, onClick, snapId }) => {
   return (
-    <Card
-      className={classnames('snap-settings-card', className)}
+    <Box
+      className="snap-settings-card"
+      display={DISPLAY.FLEX}
+      alignItems={AlignItems.center}
+      justifyContent={JustifyContent.spaceBetween}
+      width={BLOCK_SIZES.FULL}
       onClick={onClick}
-      borderRadius={BorderRadius.LG}
+      padding={[4, 4, 4, 4]}
     >
       <Box
         display={DISPLAY.FLEX}
         alignItems={AlignItems.center}
-        justifyContent={JustifyContent.center}
+        justifyContent={JustifyContent.flexStart}
+        width={BLOCK_SIZES.FULL}
       >
         <Box>
           <SnapAvatar snapId={snapId} />
         </Box>
-        <Box marginLeft={4}>
+        <Box paddingLeft={4} paddingRight={4} width={BLOCK_SIZES.FULL}>
           <Text className="snap-settings-card__title" size={Size.MD}>
             {name}
           </Text>
@@ -43,15 +46,15 @@ const SnapSettingsCard = ({ name, url, onClick, className, snapId }) => {
             {url}
           </Text>
         </Box>
-        <Box marginLeft={4} className="snap-settings-card__caret">
-          <Icon
-            name={ICON_NAMES.ARROW_RIGHT}
-            size={ICON_SIZES.LG}
-            color={Color.textMuted}
-          />
-        </Box>
       </Box>
-    </Card>
+      <Box className="snap-settings-card__caret">
+        <Icon
+          name={ICON_NAMES.ARROW_RIGHT}
+          size={ICON_SIZES.LG}
+          color={Color.textMuted}
+        />
+      </Box>
+    </Box>
   );
 };
 
@@ -68,10 +71,6 @@ SnapSettingsCard.propTypes = {
    * onClick function of the "See Details" Button
    */
   onClick: PropTypes.func,
-  /**
-   * Additional className added to the root div of the SnapSettingsCard component
-   */
-  className: PropTypes.string,
   /**
    * ID of a snap.
    */
