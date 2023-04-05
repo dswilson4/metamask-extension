@@ -695,9 +695,6 @@
       }
     },
     "@metamask/approval-controller": {
-      "globals": {
-        "console.log": true
-      },
       "packages": {
         "@metamask/approval-controller>nanoid": true,
         "@metamask/base-controller": true,
@@ -1201,17 +1198,12 @@
         "setInterval": true
       },
       "packages": {
-        "@metamask/gas-fee-controller>@metamask/base-controller": true,
+        "@metamask/base-controller": true,
         "@metamask/gas-fee-controller>@metamask/controller-utils": true,
         "eth-query": true,
         "ethereumjs-util": true,
         "ethjs>ethjs-unit": true,
         "uuid": true
-      }
-    },
-    "@metamask/gas-fee-controller>@metamask/base-controller": {
-      "packages": {
-        "immer": true
       }
     },
     "@metamask/gas-fee-controller>@metamask/controller-utils": {
