@@ -8,10 +8,11 @@ import {
   AlignItems,
   JustifyContent,
   DISPLAY,
-  Size,
   BLOCK_SIZES,
+  IconColor,
+  TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { Icon, ICON_NAMES, ICON_SIZES, Text } from '../../../component-library';
+import { Icon, IconName, IconSize, Text } from '../../../component-library';
 import SnapAvatar from '../snap-avatar';
 
 const SnapSettingsCard = ({ name, url, onClick, snapId }) => {
@@ -22,36 +23,41 @@ const SnapSettingsCard = ({ name, url, onClick, snapId }) => {
       alignItems={AlignItems.center}
       justifyContent={JustifyContent.spaceBetween}
       width={BLOCK_SIZES.FULL}
-      onClick={onClick}
       padding={[4, 4, 4, 4]}
     >
       <Box
+        className="snap-settings-card__inner-wrapper"
         display={DISPLAY.FLEX}
         alignItems={AlignItems.center}
         justifyContent={JustifyContent.flexStart}
         width={BLOCK_SIZES.FULL}
+        onClick={onClick}
       >
         <Box>
           <SnapAvatar snapId={snapId} />
         </Box>
         <Box paddingLeft={4} paddingRight={4} width={BLOCK_SIZES.FULL}>
-          <Text className="snap-settings-card__title" size={Size.MD}>
+          <Text
+            className="snap-settings-card__title"
+            color={Color.textDefault}
+            variant={TextVariant.bodyMd}
+          >
             {name}
           </Text>
           <Text
             className="snap-settings-card__url"
-            color={Color.textMuted}
-            size={Size.XXS}
+            color={Color.textAlternative}
+            variant={TextVariant.bodySm}
           >
             {url}
           </Text>
         </Box>
       </Box>
-      <Box className="snap-settings-card__caret">
+      <Box className="snap-settings-card__caret" onClick={onClick}>
         <Icon
-          name={ICON_NAMES.ARROW_RIGHT}
-          size={ICON_SIZES.LG}
-          color={Color.textMuted}
+          name={IconName.ArrowRight}
+          size={IconSize.Md}
+          color={IconColor.iconMuted}
         />
       </Box>
     </Box>
